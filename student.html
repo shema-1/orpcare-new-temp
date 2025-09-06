@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Daily Life</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --secondary: #2e3b4e;
+      --light: #f4f6f8;
+      --gradient: linear-gradient(135deg, #4a90e2, #0072ff);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--secondary);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    /* Header */
+    header {
+      background: var(--gradient);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+      animation: slideDown 1s ease-out;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 10%;
+      animation: fadeIn 1.5s ease;
+    }
+
+    section:nth-child(even) {
+      background: #fff;
+    }
+
+    section:nth-child(odd) {
+      background: #f9fafc;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    /* Cards */
+    .routine, .activities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      height: 180px; 
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      height: 220px;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.6s ease;
+    }
+
+    .gallery img.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    /* Back to Top */
+    #backToTop {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: 0.3s ease;
+    }
+
+    #backToTop:hover {
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.6rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#routine">Routine</a>
+    <a href="#activities">Activities</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
+
+  <header>
+    <h1>Daily Student Life at Orpcare Secondary School</h1>
+    <p>Experience. Learn. Grow.</p>
+  </header>
+
+  <section id="routine">
+    <h2>🕘 Daily Routine</h2>
+    <div class="routine">
+      <div class="card">
+        <img src="orpcare students.jpg" alt="Morning Assembly">
+        <h3>Morning Assembly</h3>
+        <p>Every school day begins with a vibrant morning assembly including national anthem, prayers, and life lessons. Students present news updates, motivational talks, and creative skits.</p>
+      </div>
+      <div class="card">
+        <img src="ssss.jpg" alt="Class Time">
+        <h3>Classroom Learning</h3>
+        <p>Engaging lessons in Mathematics, Science, Languages and more. Smart boards and discussions promote active participation and understanding.</p>
+      </div>
+      <div class="card">
+        <img src="food.jpg" alt="Lunch Time">
+        <h3>Lunch Break</h3>
+        <p>Midday meals served fresh in the cafeteria. It's a moment of relaxation, bonding with friends, or quick revision before afternoon classes.</p>
+      </div>
+      <div class="card">
+        <img src="class room.png" alt="Afternoon Study">
+        <h3>Afternoon Studies</h3>
+        <p>Includes computer labs, science practicals, and homework support. Teachers provide extra help and guidance where needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="activities">
+    <h2>🎯 Activities & Clubs</h2>
+    <div class="activities">
+      <div class="card">
+        <img src="lll.png" alt="Science Club">
+        <h3>Science Club</h3>
+        <p>Students explore real-world science by building projects, competing in fairs, and conducting environmental campaigns.</p>
+      </div>
+      <div class="card">
+        <img src="orpcare team.jpg" alt="Sports Time">
+        <h3>Sports & Fitness</h3>
+        <p>Our school values physical health through sports like football, volleyball, and athletics. We hold inter-class and inter-school tournaments.</p>
+      </div>
+      <div class="card">
+        <img src="child library.jpg" alt="ICT Club">
+        <h3>ICT & Coding Club</h3>
+        <p>Students learn web development, robotics, and participate in national hackathons. Digital literacy is a core skill we nurture.</p>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?art,students" alt="Arts and Culture">
+        <h3>Arts & Culture</h3>
+        <p>Dancing, drama, singing and poetry help students express themselves creatively. We celebrate Rwandan culture through school events.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>📸 Life in Pictures</h2>
+    <div class="gallery">
+      <img src="orpcare nusery.jpg" alt="Classroom Moment">
+      <img src="orpcare students.jpg" alt="Library">
+      <img src="orpcare sports.png" alt="Sports">
+      <img src="good.jpg" alt="Group Study">
+      <img src="child library.jpg" alt="ICT Class">
+      <img src="dance.jpg" alt="Cultural Event">
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Orpcare Secondary School. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop">↑</button>
+
+  <script>
+    // Animate gallery on scroll
+    const galleryImgs = document.querySelectorAll('.gallery img');
+    const imgObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    galleryImgs.forEach(img => imgObserver.observe(img));
+
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.style.display = 'flex';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

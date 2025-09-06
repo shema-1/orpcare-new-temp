@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>School Admission Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    nav button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 0 5px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    nav button.active {
+      background: #2980b9;
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    /* Form styling */
+    form {
+      background: #fff;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #34495e;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button[type="submit"] {
+      background-color: #3498db;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 0;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+    .success-message {
+      background: #2ecc71;
+      color: white;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+    /* Dashboard table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #3498db;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>School Admission Portal</h2>
+
+  <nav>
+    <button id="applyTab" class="active">Apply</button>
+    <button id="dashboardTab">Dashboard</button>
+  </nav>
+
+  <!-- Apply Form -->
+  <section id="applySection" class="active">
+    <form id="admissionForm" novalidate>
+      <label for="studentName">Student Full Name *</label>
+      <input type="text" id="studentName" name="studentName" required />
+
+      <label for="dob">Date of Birth *</label>
+      <input type="date" id="dob" name="dob" required />
+
+      <div>
+        <label>Gender *</label>
+        <label><input type="radio" name="gender" value="Male" required /> Male</label>
+        <label><input type="radio" name="gender" value="Female" /> Female</label>
+        <label><input type="radio" name="gender" value="Other" /> Other</label>
+      </div>
+
+      <label for="grade">Grade Applying For *</label>
+      <select id="grade" name="grade" required>
+        <option value="" disabled selected>Select grade</option>
+        <option value="Nursery">Nursery</option>
+        <option value="Primary">Primary</option>
+        <option value="S1">S1</option>
+        <option value="S2">S2</option>
+        <option value="S3">S3</option>
+      </select>
+
+      <label for="parentName">Parent/Guardian Full Name *</label>
+      <input type="text" id="parentName" name="parentName" required />
+
+      <label for="parentPhone">Parent/Guardian Phone *</label>
+      <input type="tel" id="parentPhone" name="parentPhone" placeholder="+250 7XX XXX XXX" required />
+
+      <label for="parentEmail">Parent/Guardian Email *</label>
+      <input type="email" id="parentEmail" name="parentEmail" required />
+
+      <label for="address">Home Address *</label>
+      <textarea id="address" name="address" required></textarea>
+
+      <label for="previousSchool">Previous School (if any)</label>
+      <input type="text" id="previousSchool" name="previousSchool" />
+
+      <label for="documents">Upload Birth Certificate or Report Card *</label>
+      <input type="file" id="documents" name="documents" accept=".pdf,.jpg,.jpeg,.png" required />
+
+      <button type="submit">Submit Admission Form</button>
+      <div class="success-message" id="successMessage">Thank you! Your admission form has been submitted successfully.</div>
+    </form>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboardSection">
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>DOB</th>
+          <th>Gender</th>
+          <th>Grade</th>
+          <th>Parent</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Prev. School</th>
+          <th>Document</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody id="admissionsTable"></tbody>
+    </table>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCcbMsoN20_gfJY29DEn5jtfgrSIv2eTDc",
+      authDomain: "apply-form-a1fd3.firebaseapp.com",
+      projectId: "apply-form-a1fd3",
+      storageBucket: "apply-form-a1fd3.appspot.com",
+      messagingSenderId: "263889146941",
+      appId: "1:263889146941:web:01d3a8c6754555a7858654",
+      measurementId: "G-J34P67P4FC"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // Tabs
+    const applyTab = document.getElementById("applyTab");
+    const dashboardTab = document.getElementById("dashboardTab");
+    const applySection = document.getElementById("applySection");
+    const dashboardSection = document.getElementById("dashboardSection");
+
+    applyTab.addEventListener("click", () => {
+      applyTab.classList.add("active");
+      dashboardTab.classList.remove("active");
+      applySection.classList.add("active");
+      dashboardSection.classList.remove("active");
+    });
+
+    dashboardTab.addEventListener("click", () => {
+      dashboardTab.classList.add("active");
+      applyTab.classList.remove("active");
+      dashboardSection.classList.add("active");
+      applySection.classList.remove("active");
+      loadAdmissions();
+    });
+
+    // Form submission
+    const form = document.getElementById("admissionForm");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const studentName = document.getElementById("studentName").value;
+      const dob = document.getElementById("dob").value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value;
+      const grade = document.getElementById("grade").value;
+      const parentName = document.getElementById("parentName").value;
+      const parentPhone = document.getElementById("parentPhone").value;
+      const parentEmail = document.getElementById("parentEmail").value;
+      const address = document.getElementById("address").value;
+      const previousSchool = document.getElementById("previousSchool").value;
+      const file = document.getElementById("documents").files[0];
+
+      if (!file) {
+        alert("Please upload a required document.");
+        return;
+      }
+
+      try {
+        const storageRef = ref(storage, "documents/" + Date.now() + "-" + file.name);
+        await uploadBytes(storageRef, file);
+        const fileURL = await getDownloadURL(storageRef);
+
+        await addDoc(collection(db, "admissions"), {
+          studentName, dob, gender, grade,
+          parentName, parentPhone, parentEmail,
+          address, previousSchool,
+          documentURL: fileURL,
+          submittedAt: new Date()
+        });
+
+        form.reset();
+        successMessage.style.display = "block";
+
+      } catch (error) {
+        console.error("Error saving form:", error);
+        alert("Something went wrong, please try again.");
+      }
+    });
+
+    // Dashboard loader
+    const tableBody = document.getElementById("admissionsTable");
+
+    async function loadAdmissions() {
+      const q = query(collection(db, "admissions"), orderBy("submittedAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      tableBody.innerHTML = "";
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = `
+          <tr>
+            <td>${data.studentName}</td>
+            <td>${data.dob}</td>
+            <td>${data.gender}</td>
+            <td>${data.grade}</td>
+            <td>${data.parentName}</td>
+            <td>${data.parentPhone}</td>
+            <td>${data.parentEmail}</td>
+            <td>${data.address}</td>
+            <td>${data.previousSchool || "-"}</td>
+            <td><a href="${data.documentURL}" target="_blank">View</a></td>
+            <td>${data.submittedAt?.toDate ? data.submittedAt.toDate().toLocaleString() : new Date(data.submittedAt.seconds*1000).toLocaleString()}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+  </script>
+</body>
+</html>
